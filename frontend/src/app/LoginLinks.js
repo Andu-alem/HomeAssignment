@@ -5,6 +5,7 @@ import { useAuth } from '@/hooks/auth'
 
 const LoginLinks = () => {
     const { user } = useAuth({ middleware: 'guest' })
+    console.log("The user data is ---- ", user);
 
     return (
         <div className="hidden fixed top-0 right-0 px-6 py-4 sm:block">

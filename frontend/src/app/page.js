@@ -1,10 +1,18 @@
 import LoginLinks from '@/app/LoginLinks'
+import axios from '@/lib/axios'
 
 export const metadata = {
     title: 'Laravel',
 }
 
-const Home = () => {
+const getData = async () => {
+    const response = await axios.get('http://127.0.0.1:8000/api/api');
+    return response.data;
+}
+
+const Home = async () => {
+    const data = await getData();
+    console.log("the response is ---- ", data);
     return (
         <>
             <div className="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center sm:pt-0">
