@@ -6,6 +6,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use App\Models\Category;
 
@@ -23,8 +24,8 @@ class ProductController extends Controller implements HasMiddleware
      */
     public function index()
     {
-        $products = Product::with('category')->get();
-        return response()->json(['message' => 'welcome']);
+        $products = Product::with('category')->paginate(20);
+        return ProductResource::collection($products);
     }
 
     /**
