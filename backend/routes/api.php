@@ -26,10 +26,18 @@ Route::get('/categories', function () {
     return response()->json($categories);
 });
 
-Route::get('/search-result/{param}', function ($param) {
+Route::get('/getProductByName/{param}', function ($param) {
     $products = Product::where('name', 'like', "%$param%")
                         ->with('category')
                         ->get();
+    return response()->json($products);
+});
+
+Route::get('/getProductByCategory/{id}', function ($id) {
+    $products = Product::where('category_id', $id)
+                        ->paginate(5)
+                        ->get();
+    
     return response()->json($products);
 });
 
