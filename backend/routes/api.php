@@ -35,7 +35,6 @@ Route::get('/getProductByName/{param}', function ($param) {
 
 Route::get('/getProductByCategory/{id}', function ($id) {
     $products = Product::where('category_id', $id)
-                        ->paginate(5)
                         ->get();
     
     return response()->json($products);
