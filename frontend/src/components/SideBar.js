@@ -1,5 +1,9 @@
+'use client'
+import { useAppContext } from "@/lib/context"
 
-const SideBar = ({ categories, onPageChange }) => {
+const SideBar = ({ categories }) => {
+    const { setUrl } = useAppContext()
+
     return (
         <>
             <h3>Additional Filters</h3>
@@ -15,7 +19,7 @@ const SideBar = ({ categories, onPageChange }) => {
                             <li 
                                 className="my-1 cursor-pointer hover:bg-gray-50" 
                                 key={ category.id }
-                                onClick={ () => onPageChange(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/getProductByCategory/${category.id}`) }
+                                onClick={ () => setUrl(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/getProductByCategory/${category.id}`) }
                             >{ category.name }</li>
                         ))
                     }

@@ -5,9 +5,12 @@ const CustomContext = createContext();
 
 const ContextProvider = ({ children }) => {
     const [cart, setCart] = useState([{'name':'hello man'}])
-    const [searchParam, setSearchParam] = useState('')
+    const [url, setUrl] = useState(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`)
+
     return (
-        <CustomContext.Provider value={{ cart, setCart, searchParam, setSearchParam }} >
+        <CustomContext.Provider 
+            value={{ cart, setCart, url, setUrl }} 
+        >
             { children }
         </CustomContext.Provider>
     )

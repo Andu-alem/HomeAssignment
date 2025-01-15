@@ -15,28 +15,36 @@ import { useAppContext } from '@/lib/context'
 //}
 
 const Home = () => {
-    const [url, setUrl] = useState(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`)
     const [data, setData] = useState([])
     const [meta, setMeta] = useState({})
     const [categories, setCategories] = useState([])
-    const { cart, setCart, searchParam } = useAppContext()
+    const { url, cart, setCart } = useAppContext()
 
     useEffect(() => {
-        console.log("hello andi")
+        async function getCats() {
+            const catData = await getCategories()
+            setCategories(catData)
+        }
+
         async function getData() {
-            if (categories.length < 1) {
-                const catData = await getCategories()
-                setCategories(catData)
-            }
             const response = await getProducts(url)
             if (response) {
-                setData(response.data)
-                setMeta(response.meta)
+                if (response.data) {
+                    setData(response.data)
+                    setMeta(response.meta)
+                } else {
+                    setData(response)
+                    setMeta({})
+                }
             }
-            console.log("the resopnse data is ----- ", response)
+        }
+
+        if (categories.length < 1) {
+            getCats()
         }
         getData()
     },[url]);
+
     if (data.length < 1) {
         return (
             <div>
@@ -44,10 +52,7 @@ const Home = () => {
             </div>
         )
     }
-    //console.log("Meta data ", meta)
-    const onPageChange = (pageUrl) => {
-        setUrl(pageUrl)
-    }
+    
 
     return (
         <main className="flex gap-4">
@@ -59,11 +64,11 @@ const Home = () => {
                             ))
                         }             
                     </div>
-                    <Pagination links={ meta.links } onPageChange={ onPageChange } />
+                    { meta.links && (<Pagination links={ meta.links } />)}
                 </section>
                 <aside className="w-1/5 py-7">
                     <div className="sticky top-24">
-                        <SideBar categories={ categories } onPageChange={ onPageChange } />
+                        <SideBar categories={ categories } />
                     </div>
                 </aside>
         </main>
