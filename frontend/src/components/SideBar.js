@@ -15,7 +15,7 @@ const SideBar = ({ categories, onPageChange }) => {
                             <li 
                                 className="my-1 cursor-pointer hover:bg-gray-50" 
                                 key={ category.id }
-                                onClick={ () => onPageChange(`http://127.0.0.1:8000/api/getProductByCategory/${category.id}`) }
+                                onClick={ () => onPageChange(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/getProductByCategory/${category.id}`) }
                             >{ category.name }</li>
                         ))
                     }

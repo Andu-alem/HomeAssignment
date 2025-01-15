@@ -8,16 +8,18 @@ import SideBar from '@/components/SideBar'
 import Link from 'next/link'
 import getProducts from '@/actions/getProducts'
 import getCategories from '@/actions/getCategories'
+import { useAppContext } from '@/lib/context'
 
 //export const metadata = {
 //    title: 'Laravel',
 //}
 
 const Home = () => {
-    const [url, setUrl] = useState('http://127.0.0.1:8000/api/products')
+    const [url, setUrl] = useState(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`)
     const [data, setData] = useState([])
     const [meta, setMeta] = useState({})
     const [categories, setCategories] = useState([])
+    const { cart, setCart, searchParam } = useAppContext()
 
     useEffect(() => {
         console.log("hello andi")

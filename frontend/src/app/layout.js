@@ -5,6 +5,7 @@ import {
     ShoppingCartIcon,
     MagnifyingGlassIcon
 } from '@heroicons/react/24/outline'
+import { ContextProvider } from '@/lib/context'
 
 const nunitoFont = Nunito({
     subsets: ['latin'],
@@ -44,9 +45,11 @@ const RootLayout = ({ children }) => {
     return (
         <html lang="en" className={nunitoFont.className}>
             <body className="antialiased">
-                <Header />
-                {children}
-                <Footer />
+                <ContextProvider>
+                    <Header />
+                    {children}
+                    <Footer />
+                </ContextProvider>
             </body>
         </html>
     )
