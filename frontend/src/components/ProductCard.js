@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 const ProductCard = ({ product }) => {
     return (
-        <div className="border border-zinc-400 p-2">
+        <div className="border border-zinc-200 p-2 rounded-md">
             <img src={`http://127.0.0.1:8000/api/image/${product.image_path}`} />
             <h2 className="text-sm text-zinc-700 my-1">{ product.name }</h2>
             <p className="text-[12px] my-1">Price - {product.price}ETB</p>
