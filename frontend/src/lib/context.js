@@ -4,12 +4,11 @@ import { createContext, useContext, useState } from 'react'
 const CustomContext = createContext();
 
 const ContextProvider = ({ children }) => {
-    const [cart, setCart] = useState([{'name':'hello man'}])
-    const [url, setUrl] = useState(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`)
+    const [cart, setCart] = useState([])
 
     return (
         <CustomContext.Provider 
-            value={{ cart, setCart, url, setUrl }} 
+            value={{ cart, setCart }} 
         >
             { children }
         </CustomContext.Provider>

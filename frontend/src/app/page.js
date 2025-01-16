@@ -1,49 +1,40 @@
-'use client'
-import { useEffect, useState } from 'react'
-import LoginLinks from '@/app/LoginLinks'
 import axios from '@/lib/axios'
 import ProductCard from '@/components/ProductCard'
 import Pagination from '@/components/Pagination'
 import SideBar from '@/components/SideBar'
-import Link from 'next/link'
-import getProducts from '@/actions/getProducts'
-import getCategories from '@/actions/getCategories'
-import { useAppContext } from '@/lib/context'
 
-//export const metadata = {
-//    title: 'Laravel',
-//}
+export const metadata = {
+    title: 'Products-page',
+}
 
-const Home = () => {
-    const [data, setData] = useState([])
-    const [meta, setMeta] = useState({})
-    const [categories, setCategories] = useState([])
-    const { url, cart, setCart } = useAppContext()
+async function getCategories() {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories`);
 
-    useEffect(() => {
-        async function getCats() {
-            const catData = await getCategories()
-            setCategories(catData)
-        }
+    return response.data;
+}
+async function getProducts(searchParams) {
+    let endPoint;
 
-        async function getData() {
-            const response = await getProducts(url)
-            if (response) {
-                if (response.data) {
-                    setData(response.data)
-                    setMeta(response.meta)
-                } else {
-                    setData(response)
-                    setMeta({})
-                }
-            }
-        }
+    if (searchParams.page) {
+        endPoint = `api/products?page=${searchParams.page}`
+    } else if (searchParams.name) {
+        endPoint = `api/search?name=${searchParams.name}`
+    } else if (searchParams.category) {
+        endPoint = `api/search?category=${searchParams.category}`
+    } else {
+        endPoint = `api/products`
+    }
 
-        if (categories.length < 1) {
-            getCats()
-        }
-        getData()
-    },[url]);
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/${endPoint}`
+    const response = await axios.get(url);
+
+    return response.data;
+}
+
+const Home = async ({ searchParams }) => {
+    const categories = await getCategories()
+    const { data, meta } = await getProducts(searchParams)
+
 
     if (data.length < 1) {
         return (
@@ -64,7 +55,7 @@ const Home = () => {
                             ))
                         }             
                     </div>
-                    { meta.links && (<Pagination links={ meta.links } />)}
+                    { meta?.links && (<Pagination links={ meta.links } />)}
                 </section>
                 <aside className="hidden sm:block sm:w-[30%] md:w-1/5 py-7 pr-4">
                     <div className="sticky sm:top-10 md:top-24">

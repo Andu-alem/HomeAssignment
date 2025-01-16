@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import AddButton from './AddToCartButton'
 
 const ProductCard = ({ product }) => {
     return (
@@ -8,7 +9,7 @@ const ProductCard = ({ product }) => {
             <h2 className="text-sm text-zinc-700 my-1">{ product.name }</h2>
             <p className="text-[12px] my-1">Price - {product.price}ETB</p>
             <div className="p-2 border-t border-zinc-200 flex justify-between text-[15px] text-zinc-500">
-                <button className="px-2 bg-sky-700 text-white">Add+</button>
+                <AddButton product={ product } />
                 <p>See detail</p>
             </div>
         </div>

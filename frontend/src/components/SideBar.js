@@ -1,8 +1,6 @@
-'use client'
-import { useAppContext } from "@/lib/context"
+import Link from "next/link"
 
 const SideBar = ({ categories }) => {
-    const { setUrl } = useAppContext()
 
     return (
         <>
@@ -20,8 +18,9 @@ const SideBar = ({ categories }) => {
                                 <li 
                                     className="my-1 cursor-pointer hover:bg-gray-50" 
                                     key={ category.id }
-                                    onClick={ () => setUrl(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/getProductByCategory/${category.id}`) }
-                                >{ category.name }</li>
+                                >
+                                    <Link href={`?category=${category.id}`}>{ category.name }</Link>
+                                </li>
                             ))
                         }
                     </ul>

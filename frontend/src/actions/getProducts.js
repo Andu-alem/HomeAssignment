@@ -1,3 +1,4 @@
+'use server'
 import axios from '@/lib/axios'
 
 export default async function getProducts(url=`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products`) {
