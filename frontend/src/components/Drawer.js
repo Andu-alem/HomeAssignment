@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 import {
     ArrowLeftIcon
 } from '@heroicons/react/24/outline'
@@ -22,7 +23,7 @@ const Drawer = ({ showDrawer, setShowDrawer }) => {
     },[])
 
     return (
-        <div className={`${ showDrawer ? 'block':'hidden'} bg-white fixed top-0 left-0 h-[100vh] w-[70vw] pl-7 py-5`}>
+        <div className={`${ showDrawer ? 'block':'hidden'} bg-white fixed top-0 left-0 h-[100vh] w-[70vw] pl-7 py-5 z-50`}>
             <div className="flex gap-5">
                 <ArrowLeftIcon 
                     className="w-5 h-5 text-black cursor-pointer" 
@@ -36,18 +37,16 @@ const Drawer = ({ showDrawer, setShowDrawer }) => {
             </div>
             <div>
                 <h4 className="text-sm">By category</h4>
-                <div className="h-[55vh] overflow-auto">
+                <div className="h-[55vh] overflow-y-auto scrollbar-thin">
                     <ul className="text-[15px] text-zinc-700 pl-3">
                         {
                             categories.map(category => (
                                 <li 
-                                    className="my-1 cursor-pointer hover:bg-gray-100" 
+                                    className="my-2 cursor-pointer hover:bg-gray-100" 
                                     key={ category.id }
-                                    onClick={ () => {
-                                        setUrl(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/getProductByCategory/${category.id}`) 
-                                        setShowDrawer(false)
-                                    }}
-                                >{ category.name }</li>
+                                >
+                                    <Link href={`?category=${category.id}`}>{ category.name }</Link>
+                                </li>
                             ))
                         }
                     </ul>
