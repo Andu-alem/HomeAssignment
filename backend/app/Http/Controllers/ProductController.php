@@ -17,7 +17,7 @@ class ProductController extends Controller implements HasMiddleware
      */
     public static function middleware(): array
     {
-        return  [new Middleware('auth', except: ['index','show'])];
+        return  [new Middleware('auth', except: ['index','show','search'])];
     }
     /**
      * Display a listing of the resource.
@@ -41,7 +41,7 @@ class ProductController extends Controller implements HasMiddleware
             'image' => 'required',
             'category' => 'required|string',
         ]);
-        $path = $request->file('profilepic')->getClientOriginalName();
+        $path = $request->file('image')->getClientOriginalName();
         Storage::put("images/{$path}", file_get_contents($request->file('profilepic')->getRealPath()));
 
         //$user = auth()->user();
@@ -83,5 +83,21 @@ class ProductController extends Controller implements HasMiddleware
     public function destroy(string $id)
     {
         //
+    }
+
+    public function search(Request $request)
+    {
+        if ($request->query('name')) {
+            $param = $request->query('name');
+            $products = Product::where('name', 'like', "%$param%")
+                        ->with('category')
+                        ->get();
+
+        } else if ($request->query('category')) {
+            $id = $request->query('category');
+            $products = Product::where('category_id', $id)
+                        ->get();
+        }
+        return ProductResource::collection($products);
     }
 }

@@ -17,26 +17,16 @@ Route::get('/api', function () {
 });
 
 Route::apiResource('products', ProductController::class);
+
 Route::get('/image/{path}', function($path) {
     return Storage::get("images\\${path}");
 });
+
+Route::get('/search', [ProductController::class, 'search']);
 
 Route::get('/categories', function () {
     $categories = Category::all();
     return response()->json($categories);
 });
 
-Route::get('/getProductByName/{param}', function ($param) {
-    $products = Product::where('name', 'like', "%$param%")
-                        ->with('category')
-                        ->get();
-    return response()->json($products);
-});
-
-Route::get('/getProductByCategory/{id}', function ($id) {
-    $products = Product::where('category_id', $id)
-                        ->get();
-    
-    return response()->json($products);
-});
 
