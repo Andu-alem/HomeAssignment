@@ -10,7 +10,7 @@ const Cart = () => {
     const { cart } = useAppContext()
     return (
         <div className="relative">
-            <Link href="#">
+            <Link href="/cart">
                 <ShoppingCartIcon className="w-7 h-7 text-green-500" />
             </Link>
             { 
