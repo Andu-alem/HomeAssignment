@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 
 use App\Models\Category;
 use App\Models\Product;
@@ -17,6 +18,8 @@ Route::get('/api', function () {
 });
 
 Route::apiResource('products', ProductController::class);
+Route::apiResource('orders', OrderController::class);
+
 
 Route::get('/image/{path}', function($path) {
     return Storage::get("images\\${path}");
