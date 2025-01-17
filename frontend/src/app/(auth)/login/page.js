@@ -10,12 +10,13 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'
 
-const Login = () => {
+const Login = ({ searchParams }) => {
     const router = useRouter()
+    const { callback } = searchParams
 
     const { login } = useAuth({
         middleware: 'guest',
-        redirectIfAuthenticated: '/dashboard',
+        callback,
     })
 
     const [email, setEmail] = useState('')
@@ -107,6 +108,11 @@ const Login = () => {
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
+                    <Link
+                        href="/register"
+                        className="underline text-sm text-gray-600 hover:text-gray-900 mr-3">
+                        New? SIGNUP
+                    </Link>
                     <Link
                         href="/forgot-password"
                         className="underline text-sm text-gray-600 hover:text-gray-900">

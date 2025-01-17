@@ -13,19 +13,18 @@ async function getCategories() {
     return response.data;
 }
 async function getProducts(searchParams) {
-    let endPoint;
+    let url;
 
     if (searchParams.page) {
-        endPoint = `api/products?page=${searchParams.page}`
+        url = `/api/products?page=${searchParams.page}`
     } else if (searchParams.name) {
-        endPoint = `api/search?name=${searchParams.name}`
+        url = `/api/search?name=${searchParams.name}`
     } else if (searchParams.category) {
-        endPoint = `api/search?category=${searchParams.category}`
+        url = `/api/search?category=${searchParams.category}`
     } else {
-        endPoint = `api/products`
+        url = `/api/products`
     }
 
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/${endPoint}`
     const response = await axios.get(url);
 
     return response.data;

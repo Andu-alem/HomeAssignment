@@ -3,7 +3,7 @@ import axios from '@/lib/axios'
 import { useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 
-export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
+export const useAuth = ({ middleware, redirectIfAuthenticated, callback } = {}) => {
     const router = useRouter()
     const params = useParams()
 
@@ -29,7 +29,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
             .post('/register', props)
             .then(() => mutate())
             .catch(error => {
-                if (error.response.status !== 422) throw error
+                if (error.response?.status !== 422) throw error
 
                 setErrors(error.response.data.errors)
             })
@@ -100,11 +100,20 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     }
 
     useEffect(() => {
-        if (middleware === 'guest' && redirectIfAuthenticated && user)
-            router.push(redirectIfAuthenticated)
+        if (middleware === 'guest' && user)
+            if (user.role === 'admin') {
+                router.push('/admin')
+            } else {
+                if (callback) {
+                    router.push(callback)
+                } else {
+                    router.push('/')
+                }
+            }
+            //router.push(redirectIfAuthenticated)
 
         if (middleware === 'auth' && !user?.email_verified_at)
-            router.push('/verify-email')
+            //router.push('/verify-email')
         
         if (
             window.location.pathname === '/verify-email' &&

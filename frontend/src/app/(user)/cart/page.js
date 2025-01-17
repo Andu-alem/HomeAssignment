@@ -1,10 +1,13 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useAuth } from '@/hooks/auth'
 import { useAppContext } from '@/lib/context'
 import ProductBox from '@/components/ProductBox'
+import axios from '@/lib/axios'
 
 const CartPage = () => {
+    const { user } = useAuth()
     const { cart } = useAppContext()
     const [totalPrice, setTotalPrice] = useState(0)
     const [newCart, setNewCart] = useState([])
@@ -40,8 +43,15 @@ const CartPage = () => {
         setNewCart(updatedCart)
     },[cart])
 
-    const orderHandler = () => {
-        //
+    const orderHandler = async () => {
+        //csrf protection
+        await axios.get('/sanctum/csrf-cookie')
+        const order = {
+            products: newCart,
+            total_price: totalPrice
+        }
+        const response = await axios.post('/api/orders', order)
+        console.log("Server response is ---- ", response)
     }
 
 
@@ -80,14 +90,19 @@ const CartPage = () => {
                     <span>{ (totalPrice + (totalPrice * (15/100) )).toFixed(2) }</span>
                 </div>
                 <button 
+                    onClick={ orderHandler }
                     className={`${ cart.length < 1 ? 'opacity-25':'opacity-100' } w-[30%] mx-auto bg-blue-500 py-1 mt-2 text-white font-bold rounded-md`}
-                    disable={ cart.length < 1 ? true: false }
+                    disable={ cart.length < 1 && user ? 'true': 'false' }
                 >Order</button>
-                <div className="mt-1 font-normal text-center">
-                    You must 
-                        <Link href="/login" className="text-sky-500 font-bold"> Log-in </Link>
-                    to make an order
-                </div>
+                { 
+                    !user && (
+                        <div className="mt-1 font-normal text-center">
+                            You must 
+                                <Link href="/login?callback=/cart" className="text-sky-500 font-bold"> Log-in </Link>
+                            to make an order
+                        </div>
+                    )
+                }
             </div>
         </div>
     )
