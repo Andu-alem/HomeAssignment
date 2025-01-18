@@ -42,12 +42,7 @@ class OrderController extends Controller implements HasMiddleware
             $product = json_decode(json_encode($products[$i]));  
             $order->products()->attach([$product->id => ["quantity" => $product->amount]]);
         }
-        return response()->json([
-            'price'=> $totalPrice,
-            'user' => $user->id,
-            'products' => $products,
-            'count' => 333
-        ]);
+        return response()->json(['success' => true]);
     }
 
     /**
