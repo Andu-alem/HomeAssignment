@@ -11,7 +11,7 @@ const SideBar = ({ categories }) => {
             </div>
             <div>
                 <h4>By category</h4>
-                <div className="h-[70vh] overflow-auto">
+                <div className="h-[70vh] overflow-y-auto scrollbar-hide">
                     <ul className="text-[15px] text-zinc-700">
                         {
                             categories.map(category => (

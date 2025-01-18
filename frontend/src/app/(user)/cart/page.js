@@ -5,12 +5,19 @@ import { useAuth } from '@/hooks/auth'
 import { useAppContext } from '@/lib/context'
 import ProductBox from '@/components/ProductBox'
 import axios from '@/lib/axios'
+import { useRouter } from 'next/navigation'
+import PopupAlert from '@/components/PopupAlert'
 
 const CartPage = () => {
+    const router = useRouter()
     const { user } = useAuth()
-    const { cart } = useAppContext()
+    const { cart, setCart } = useAppContext()
     const [totalPrice, setTotalPrice] = useState(0)
     const [newCart, setNewCart] = useState([])
+    const [showAlert, setShowAlert] = useState(false)
+    const [success, setSuccess] = useState(false)
+    const [loading, setLoading] = useState(false)
+
 
     useEffect(() => {
         let updatedCart = []
@@ -50,8 +57,24 @@ const CartPage = () => {
             products: newCart,
             total_price: totalPrice
         }
+        setLoading(true)
         const response = await axios.post('/api/orders', order)
-        console.log("Server response is ---- ", response)
+        if (response.data.success) {
+            setCart([])
+            setSuccess(true)
+            setShowAlert(true)
+            setLoading(false)
+            setTimeout(() => {
+                setSuccess(false)
+                setShowAlert(false)
+                router.push('/')
+            }, 5000)
+        } else {
+            setSuccess(false)
+            setShowAlert(true)
+            setLoading(false)
+            setTimeout(setShowAlert(false), 5000)
+        }
     }
 
 
@@ -91,7 +114,7 @@ const CartPage = () => {
                 </div>
                 <button 
                     onClick={ orderHandler }
-                    className={`${ cart.length < 1 ? 'opacity-25':'opacity-100' } w-[30%] mx-auto bg-blue-500 py-1 mt-2 text-white font-bold rounded-md`}
+                    className={`${ cart.length < 1 ? 'opacity-25':'opacity-100' } ${ loading ? 'animate-pulse':'animate-none' } w-[30%] mx-auto bg-blue-500 py-1 mt-2 text-white font-bold rounded-md hover:bg-blue-700`}
                     disable={ cart.length < 1 && user ? 'true': 'false' }
                 >Order</button>
                 { 
@@ -104,6 +127,7 @@ const CartPage = () => {
                     )
                 }
             </div>
+            <PopupAlert show={ showAlert } success={ success } />
         </div>
     )
 }

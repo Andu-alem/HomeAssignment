@@ -1,16 +1,15 @@
-import axios from '@/lib/axios'
 import ProductCard from '@/components/ProductCard'
 import Pagination from '@/components/Pagination'
 import SideBar from '@/components/SideBar'
 
 export const metadata = {
-    title: 'Products-page',
+    title: 'Cool-Market|Products',
 }
 
 async function getCategories() {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories`);
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/categories`);
 
-    return response.data;
+    return response.json();
 }
 async function getProducts(searchParams) {
     let url;
@@ -25,9 +24,11 @@ async function getProducts(searchParams) {
         url = `/api/products`
     }
 
-    const response = await axios.get(url);
+    //const response = await axios.get(url)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${url}`, { next: { revalidate: 36000 } });
 
-    return response.data;
+
+    return response.json();
 }
 
 const Home = async ({ searchParams }) => {
