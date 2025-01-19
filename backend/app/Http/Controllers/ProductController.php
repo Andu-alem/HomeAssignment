@@ -38,17 +38,15 @@ class ProductController extends Controller implements HasMiddleware
             'description' => 'required',
             'price' => 'required',
             'quantity' => 'required',
-            'image' => 'required',
-            'category' => 'required|string',
+            'image' => 'required',   
+            'category' => 'required'
         ]);
-        $path = $request->file('image')->getClientOriginalName();
-        Storage::put("images/{$path}", file_get_contents($request->file('profilepic')->getRealPath()));
+
+        $path = $request->file('image')->store('images');
 
         //$user = auth()->user();
-        $category = Category::create([
-            'name' => $request->category,
-        ]);
-
+        $category = Category::find($request->category);
+        
         $product = Product::create([
             'name' => $request->name,
             'description' => $request->description,
@@ -57,6 +55,8 @@ class ProductController extends Controller implements HasMiddleware
             'image_path' => $path,
             'category_id' => $category->id,
         ]);
+
+        return response()->json($product);
     }
 
     /**
@@ -72,9 +72,18 @@ class ProductController extends Controller implements HasMiddleware
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id) 
     {
-        //
+        //$name = $request->name;
+        /**$product = Product::where('id', $id)
+                            ->update([
+                                'name' => $request->name,
+                                'description' => $request->description,
+                                'price' => $request->price,
+                                'quantity' => $request->quantity
+                            ]);**/
+
+        return response()->json($request);
     }
 
     /**

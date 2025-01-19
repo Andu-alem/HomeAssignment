@@ -49,18 +49,18 @@ const UpdateForm = ({ product }) => {
         console.log("Form data -- ", formData.get("name"))
 
         await axios.get('/sanctum/csrf-cookie')
-        const response = await axios.put(`/api/products/${product.id}`, formData)
+        const response = await axios.put(`/api/products/${product.id}`, data)
         console.log("Server response is ---- ", response)
         if (response) {
             setSending(false)
             setShowAlert(true)
             setSuccess(true)
-            setTimeout(setShowAlert(false), 5000)
+            setTimeout(setShowAlert(false), 10000)
         } else {
             setSending(false)
             setShowAlert(true)
             setSuccess(false)
-            setTimeout(setShowAlert(false), 5000)
+            setTimeout(setShowAlert(false), 10000)
         }
     }
 

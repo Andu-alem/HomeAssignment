@@ -4,8 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CategoryController;
 
-use App\Models\Category;
 use App\Models\Product;
 
 
@@ -19,6 +19,7 @@ Route::get('/api', function () {
 
 Route::apiResource('products', ProductController::class);
 Route::apiResource('orders', OrderController::class);
+Route::apiResource('categories', CategoryController::class);
 
 
 Route::get('/image/{path}', function($path) {
@@ -26,10 +27,5 @@ Route::get('/image/{path}', function($path) {
 });
 
 Route::get('/search', [ProductController::class, 'search']);
-
-Route::get('/categories', function () {
-    $categories = Category::all();
-    return response()->json($categories);
-});
 
 
