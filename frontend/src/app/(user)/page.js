@@ -48,7 +48,7 @@ const Home = async ({ searchParams }) => {
     return (
         <main className="flex">
                 <section className="w-full sm:w-[70%] md:w-4/5">
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3 lg:gap-5 mx-1 sm:mx-7">
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5 mx-1 sm:mx-7">
                         {
                             data.map((product, index) => (
                                 <ProductCard key={index} product={ product } />

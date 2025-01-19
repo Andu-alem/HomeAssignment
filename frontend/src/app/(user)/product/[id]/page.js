@@ -5,7 +5,7 @@ import AmountOfProductInCart from '@/components/SingleProductInCart'
 
 async function getProduct(id) {
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${url}`)
+    const response = await fetch(url)
 
 
     return response.json()
@@ -13,7 +13,7 @@ async function getProduct(id) {
 
 async function getRelatedProducts(cat_id) {
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/search?category=${cat_id}`
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${url}`)
+    const response = await fetch(url)
 
     return response.json()
 }
