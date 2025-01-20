@@ -75,15 +75,15 @@ class ProductController extends Controller implements HasMiddleware
     public function update(Request $request, string $id) 
     {
         //$name = $request->name;
-        /**$product = Product::where('id', $id)
+        $product = Product::where('id', $id)
                             ->update([
                                 'name' => $request->name,
                                 'description' => $request->description,
                                 'price' => $request->price,
                                 'quantity' => $request->quantity
-                            ]);**/
+                            ]);
 
-        return response()->json($request);
+        return response()->json($product);
     }
 
     /**
@@ -91,7 +91,9 @@ class ProductController extends Controller implements HasMiddleware
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::where('id', $id)
+                            ->delete();
+        return response()->json(['success', true]);
     }
 
     public function search(Request $request)

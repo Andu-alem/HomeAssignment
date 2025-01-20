@@ -8,7 +8,7 @@ use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Http\Request;
 use App\Models\Category;
 
-class CategoryController extends Controller implements Middleware
+class CategoryController extends Controller implements HasMiddleware
 {
     /**
      * Get the middleware that should be assigned to the controller.

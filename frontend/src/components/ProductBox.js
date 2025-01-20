@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import {
     PlusCircleIcon,
     MinusCircleIcon,
@@ -27,9 +28,12 @@ const ProductBox = ({ product }) => {
 
     return (
         <div className="my-2 border border-zinc-300 p-3 flex gap-3 rounded-md">
-            <img 
-                className="w-[150px] h-[90px] rounded-md"
-                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/image/${image_path}`}
+            <Image
+                className="rounded-md"
+                src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${image_path}`}
+                alt={ product.name }
+                width={ 150 }
+                height={ 90 }
             />
             <div className="flex-grow flex justify-between">
                 <div>

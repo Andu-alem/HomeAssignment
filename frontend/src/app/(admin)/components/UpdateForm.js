@@ -1,20 +1,22 @@
 'use client'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import Image from 'next/image'
 import axios from '@/lib/axios'
 import Input from './UpdateInput'
 import TextArea from './UpdateTextArea'
 import PopupAlert from '@/components/PopupAlert'
-
+import { useRouter } from 'next/navigation'
 
 
 const UpdateForm = ({ product }) => {
+    const router = useRouter()
     const [image, setImage] = useState(null)
     const [sending, setSending] = useState(false)
     const [message, setMessage] = useState('')
     const [showAlert, setShowAlert] = useState(false)
     const [success, setSuccess] = useState(false)
-    const [src, setSrc] = useState(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/image/${product.image_path}`)
+    const [src, setSrc] = useState(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${product.image_path}`)
     const { register, handleSubmit, formState:{ errors } } = useForm({
         defaultValues: {
             name: product.name,
@@ -35,7 +37,6 @@ const UpdateForm = ({ product }) => {
         }
         if (image !== null) {
             isDataModified = true
-            console.log("Image ,mmodified")
         }
         formData.append("image", image)
         formData.append("category", product.category.id)
@@ -46,16 +47,18 @@ const UpdateForm = ({ product }) => {
         }
         setSending(true)
         setMessage('')
-        console.log("Form data -- ", formData.get("name"))
 
         await axios.get('/sanctum/csrf-cookie')
         const response = await axios.put(`/api/products/${product.id}`, data)
-        console.log("Server response is ---- ", response)
-        if (response) {
+        
+        if (response.data) {
             setSending(false)
             setShowAlert(true)
             setSuccess(true)
-            setTimeout(setShowAlert(false), 10000)
+            setTimeout(() => { 
+                setShowAlert(false)
+                router.push(`/admin/product/${product.id}`)
+            }, 10000)
         } else {
             setSending(false)
             setShowAlert(true)
@@ -93,7 +96,10 @@ const UpdateForm = ({ product }) => {
                 <label 
                     className="capitalize text-white bg-gray-700 cursor-pointer rounded-md px-2" 
                     htmlFor="upload">Change Image</label>
-                <img className="w-[200px] h-[150px]" src={ src } />
+                <Image 
+                    src={ src }
+                    width={ 200 }
+                    height={ 150 } />
                 <input 
                     className="hidden"
                     type="file" 

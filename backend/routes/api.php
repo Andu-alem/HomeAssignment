@@ -22,7 +22,7 @@ Route::apiResource('orders', OrderController::class);
 Route::apiResource('categories', CategoryController::class);
 
 
-Route::get('/image/{path}', function($path) {
+Route::get('/images/{path}', function($path) {
     return Storage::get("images\\${path}");
 });
 

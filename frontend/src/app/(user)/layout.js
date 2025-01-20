@@ -7,7 +7,7 @@ import { useAuth } from '@/hooks/auth'
 const Layout = ({ children }) => {
     const { user, logout } = useAuth()
     return (
-        <div>     
+        <div className="">     
             <Header user={ user } logout={ logout } />
                 {children}
             <Footer />

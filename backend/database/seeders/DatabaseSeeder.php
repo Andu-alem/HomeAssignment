@@ -26,10 +26,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Category::factory()
-                ->count(12)
+                ->count(10)
                 ->has(
                     Product::factory()
-                            ->count(10)
+                            ->count(5)
                 ) -> create();
 
     }

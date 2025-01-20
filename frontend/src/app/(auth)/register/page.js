@@ -7,11 +7,16 @@ import Label from '@/components/Label'
 import Link from 'next/link'
 import { useAuth } from '@/hooks/auth'
 import { useState } from 'react'
+import {
+    EyeIcon,
+    EyeSlashIcon
+} from '@heroicons/react/24/outline'
 
-const Page = () => {
+const Page = ({ searchParams }) => {
+    const { callback } = searchParams
     const { register } = useAuth({
         middleware: 'guest',
-        redirectIfAuthenticated: '/dashboard',
+        callback,
     })
 
     const [name, setName] = useState('')
@@ -19,6 +24,7 @@ const Page = () => {
     const [password, setPassword] = useState('')
     const [passwordConfirmation, setPasswordConfirmation] = useState('')
     const [errors, setErrors] = useState([])
+    const [showPassword, setShowPassword] = useState(false)
 
     const submitForm = event => {
         event.preventDefault()
@@ -73,7 +79,7 @@ const Page = () => {
 
                 <Input
                     id="password"
-                    type="password"
+                    type= { showPassword ? "text":"password" }
                     value={password}
                     className="block mt-1 w-full"
                     onChange={event => setPassword(event.target.value)}
@@ -92,7 +98,7 @@ const Page = () => {
 
                 <Input
                     id="passwordConfirmation"
-                    type="password"
+                    type= { showPassword ? "text":"password" }
                     value={passwordConfirmation}
                     className="block mt-1 w-full"
                     onChange={event =>
@@ -106,7 +112,15 @@ const Page = () => {
                     className="mt-2"
                 />
             </div>
-
+            <div className="flex justify-start mt-4 gap-1 text-sm text-gray-700 cursor-pointer" onClick={ () => setShowPassword(!showPassword) }>
+                {
+                    showPassword ? (
+                        <EyeSlashIcon className="w-4 h-4 mt-[3px]" />
+                    ):(
+                        <EyeIcon className="w-4 h-4 mt-[3px]" />
+                    )
+                } Show password
+            </div>
             <div className="flex items-center justify-end mt-4">
                 <Link
                     href="/login"

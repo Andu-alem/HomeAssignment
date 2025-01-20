@@ -9,6 +9,10 @@ import { useAuth } from '@/hooks/auth'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import AuthSessionStatus from '@/app/(auth)/AuthSessionStatus'
+import {
+    EyeIcon,
+    EyeSlashIcon
+} from '@heroicons/react/24/outline'
 
 const Login = ({ searchParams }) => {
     const router = useRouter()
@@ -21,6 +25,7 @@ const Login = ({ searchParams }) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [showPassword, setShowPassword] = useState(false)
     const [shouldRemember, setShouldRemember] = useState(false)
     const [errors, setErrors] = useState([])
     const [status, setStatus] = useState(null)
@@ -72,7 +77,7 @@ const Login = ({ searchParams }) => {
 
                     <Input
                         id="password"
-                        type="password"
+                        type={ showPassword ? "text":"password" }
                         value={password}
                         className="block mt-1 w-full"
                         onChange={event => setPassword(event.target.value)}
@@ -87,7 +92,7 @@ const Login = ({ searchParams }) => {
                 </div>
 
                 {/* Remember Me */}
-                <div className="block mt-4">
+                <div className="block mt-4 flex justify-between">
                     <label
                         htmlFor="remember_me"
                         className="inline-flex items-center">
@@ -105,11 +110,20 @@ const Login = ({ searchParams }) => {
                             Remember me
                         </span>
                     </label>
+                    <div className="flex gap-1 text-sm text-gray-700 cursor-pointer" onClick={ () => setShowPassword(!showPassword) }>
+                        {
+                            showPassword ? (
+                                <EyeSlashIcon className="w-4 h-4 mt-[3px]" />
+                            ):(
+                                <EyeIcon className="w-4 h-4 mt-[3px]" />
+                            )
+                        } Show password
+                    </div>
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
                     <Link
-                        href="/register"
+                        href={ callback ? `/register?callback=${callback}`:'/register' }
                         className="underline text-sm text-gray-600 hover:text-gray-900 mr-3">
                         New? SIGNUP
                     </Link>

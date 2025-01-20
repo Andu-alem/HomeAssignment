@@ -35,7 +35,7 @@ const SideBar = () => {
                 <Bars3CenterLeftIcon className="w-7 h-7 mx-2 mt-1 sm:hidden cursor-pointer text-white" onClick={ () => setShow(true) } />
                 <h3 className="text-lg flex-grow sm:text-xl md:text-2xl text-white py-1 sm:border-b border-white px-3">Cool-Market</h3>
             </div>
-            <div className={`${ show ? 'block':'hidden' } fixed sm:static top-0 w-full h-[100vh] sm:h-full z-50 pt-[5%] sm:pt-0 bg-zinc-800 sm:bg-transparent text-white mt-0 sm:mt-4 px-4`}>
+            <div className={`${ show ? 'block':'hidden' } fixed sm:static sm:block top-0 w-full h-[100vh] sm:h-full z-50 pt-[5%] sm:pt-0 bg-zinc-800 sm:bg-transparent text-white mt-0 sm:mt-4 px-4`}>
                 <ArrowLeftIcon className="w-5 h-5 text-white sm:hidden mb-5 sm:mb-0" onClick={ () => setShow(false) } />
                 <Collapse title="Add New">
                     <div className="flex flex-col">
@@ -43,10 +43,6 @@ const SideBar = () => {
                             className="text-gray-200 cursor-default text-[15px] pl-3 py-1 hover:text-gray-300 hover:bg-zinc-700"
                             href="/admin/create"
                         >Product</Link>
-                        <Link 
-                            className="text-gray-200 cursor-default text-[15px] pl-3 py-1 hover:text-gray-300 hover:bg-zinc-700"
-                            href="/category"
-                        >Category</Link>
                         <div className="pl-3 py-1">
                             <div className="flex justify-between cursor-default" onClick={ () => setShowForm(!showForm) }>
                                 <span className="text-gray-200 cursor-default text-[15px] py-1 hover:text-gray-300 hover:bg-zinc-700">Category</span>

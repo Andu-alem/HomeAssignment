@@ -13,7 +13,7 @@ async function getProducts(searchParams) {
     } else {
         url = `/api/products`
     }
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${url}`, { next: { revalidate: 36000 } });
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${url}`, { next: { revalidate: 1 } });
 
     return response.json();
 }

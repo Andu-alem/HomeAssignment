@@ -111,7 +111,14 @@ export const useAuth = ({ middleware, redirectIfAuthenticated, callback } = {}) 
                 }
             }
             //router.push(redirectIfAuthenticated)
-
+        if (middleware === 'admin' && !user) {
+            router.push('/login')
+        }
+        if (middleware === 'admin' && user) {
+            if (user.role !== 'admin') {
+                router.push('/')
+            }
+        }
         if (middleware === 'auth' && !user?.email_verified_at)
             //router.push('/verify-email')
         

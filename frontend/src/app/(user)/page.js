@@ -25,7 +25,7 @@ async function getProducts(searchParams) {
     }
 
     //const response = await axios.get(url)
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${url}`, { next: { revalidate: 36000 } });
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${url}`, { next: { revalidate: 1 } });
 
 
     return response.json();
@@ -46,9 +46,9 @@ const Home = async ({ searchParams }) => {
     
 
     return (
-        <main className="flex">
+        <main className="flex mt-2">
                 <section className="w-full sm:w-[70%] md:w-4/5">
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-5 mx-1 sm:mx-7">
+                    <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-3 lg:gap-5 mx-1 sm:mx-7">
                         {
                             data.map((product, index) => (
                                 <ProductCard key={index} product={ product } />

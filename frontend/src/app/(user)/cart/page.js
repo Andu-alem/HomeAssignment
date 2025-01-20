@@ -51,6 +51,10 @@ const CartPage = () => {
     },[cart])
 
     const orderHandler = async () => {
+        if (!user) {
+            router.push("/login?callback=/cart")
+            return
+        }
         //csrf protection
         await axios.get('/sanctum/csrf-cookie')
         const order = {

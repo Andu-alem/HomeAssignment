@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
 import axios from '@/lib/axios'
 import Input from '../../components/Input'
 import FileInput from '../../components/FileInput'
@@ -16,6 +17,7 @@ async function getCategories() {
 }
 
 const Page = () => {
+    const router = useRouter()
     const { register, handleSubmit, formState: { errors } } = useForm()
     const [image, setImage] = useState(null)
     const [categories, setCategories] = useState([])
@@ -47,7 +49,10 @@ const Page = () => {
             setSending(false)
             setShowAlert(true)
             setSuccess(true)
-            setTimeout(setShowAlert(false), 5000)
+            setTimeout(() => {
+                setShowAlert(false)
+                router.push(`/admin/product/${response.data.id}`)
+            }, 5000)
         } else {
             setSending(false)
             setShowAlert(true)

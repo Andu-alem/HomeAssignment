@@ -1,11 +1,10 @@
 'use client'
 
 import { useAuth } from '@/hooks/auth'
-//import Navigation from '@/app/(app)/Navigation'
 import Loading from '@/app/(admin)/Loading'
 
 const AdminRootLayout = ({ children }) => {
-    const { user } = useAuth({ middleware: 'guest' })
+    const { user } = useAuth({ middleware: 'admin' })
 
     if (!user || user?.role !== 'admin') {
         return <Loading />

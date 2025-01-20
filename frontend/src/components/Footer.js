@@ -10,6 +10,9 @@ import Instagram from '@/components/svgs/Instagram'
 const Footer = () => {
     return (
         <footer className="py-7 h-[100vh] bg-black flex flex-col justify-end">
+            <div className="w-[100%] h-[75%] flex justify-center items-center">
+                <h1 className="text-white text-xl font-bold">Cool-Market E-Commerce</h1>
+            </div>
             <div className="text-white flex justify-center gap-4 my-4">
                 <a href="#" target="_blank" className="">
                     <LinkIcon className="w-7 h-7 text-white hover:text-sky-500" />

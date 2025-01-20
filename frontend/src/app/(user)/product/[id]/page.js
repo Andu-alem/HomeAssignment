@@ -26,10 +26,13 @@ const Page = async ({ params }) => {
     return (
         <div className="w-[90vw] sm:w-[94vw] md:w-[86vw] lg:w-[82vw] mx-auto">
             <div className="flex flex-col sm:flex-row gap-5 my-10">
-                <img 
+                <Image
                     className="w-full mx-auto sm:w-1/2 rounded md" 
-                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/image/${productData.image_path}`}
+                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/images/${productData.image_path}`}
                     alt={ productData.name } 
+                    width={ 400 }
+                    height={ 200 }
+                    layout='reponsive'
                 />
                 <div className="w-full mx-auto sm:w-1/2">
                     <h3 className="text-zinc-700 text-lg">{ productData.name }</h3>

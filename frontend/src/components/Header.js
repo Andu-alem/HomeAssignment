@@ -14,7 +14,7 @@ const Header = ({ user, logout }) => {
     const [showDrawer, setShowDrawer] = useState(false)
 
     return (
-        <header className="flex flex-col items-center justify-center sm:flex-row sm:justify-between px-1 sm:px-10 py-3 sm:py-5 bg-white sticky top-0 z-50 border-b border-zinc-500">
+        <header className="flex flex-col items-center justify-center sm:flex-row sm:justify-between px-1 sm:px-10 py-3 sm:py-5 bg-gray-100 sticky top-0 z-50 border-b border-zinc-500">
             <div className="w-full flex justify-between items-end sm:w-[30%]"> 
                 <div className="block sm:hidden">
                     <Bars3CenterLeftIcon 

@@ -1,18 +1,13 @@
-import { Nunito } from 'next/font/google'
+//import { Nunito } from 'next/font/google'
 import '@/app/global.css'
 
 import { ContextProvider } from '@/lib/context'
 
-const nunitoFont = Nunito({
-    subsets: ['latin'],
-    display: 'swap',
-})
-
 
 const RootLayout = ({ children }) => {
     return (
-        <html lang="en" className={nunitoFont.className}>
-            <body className="antialiased">
+        <html lang="en">
+            <body className="antialiased bg-gray-100">
                 <ContextProvider>
                     {children}
                 </ContextProvider>
