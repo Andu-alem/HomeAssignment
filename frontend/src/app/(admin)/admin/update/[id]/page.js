@@ -2,7 +2,7 @@ import UpdateForm from "@/app/(admin)/components/UpdateForm"
 
 async function getProduct(id) {
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`
-    const response = await fetch(url)
+    const response = await fetch(url, { cache: "no-store" })
 
 
     return response.json()

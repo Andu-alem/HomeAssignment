@@ -18,7 +18,7 @@ async function getCategories() {
 
 const Page = () => {
     const router = useRouter()
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const [image, setImage] = useState(null)
     const [categories, setCategories] = useState([])
     const [sending, setSending] = useState(false)
@@ -51,6 +51,7 @@ const Page = () => {
             setSuccess(true)
             setTimeout(() => {
                 setShowAlert(false)
+                reset()
                 router.push(`/admin/product/${response.data.id}`)
             }, 5000)
         } else {

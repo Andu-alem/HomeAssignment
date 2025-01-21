@@ -17,7 +17,7 @@ const UpdateForm = ({ product }) => {
     const [showAlert, setShowAlert] = useState(false)
     const [success, setSuccess] = useState(false)
     const [src, setSrc] = useState(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${product.image_path}`)
-    const { register, handleSubmit, formState:{ errors } } = useForm({
+    const { register, handleSubmit, reset, formState:{ errors } } = useForm({
         defaultValues: {
             name: product.name,
             description: product.description,
@@ -57,6 +57,7 @@ const UpdateForm = ({ product }) => {
             setSuccess(true)
             setTimeout(() => { 
                 setShowAlert(false)
+                reset()
                 router.push(`/admin/product/${product.id}`)
             }, 10000)
         } else {
