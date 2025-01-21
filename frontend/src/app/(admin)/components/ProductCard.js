@@ -6,7 +6,7 @@ const ProductCard = ({ product }) => {
     const { id, name, image_path, price, quantity } = product
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${image_path}`
     return (
-        <div className="border border-zinc-400 rounded-lg p-2 text-[17px] text-zinc-700">
+        <div className="border border-zinc-300 rounded-lg p-2 text-[17px] text-zinc-700">
             <Image
                 className="mb-1"
                 src={ url }

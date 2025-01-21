@@ -5,7 +5,7 @@ import AmountOfProductInCart from '@/components/SingleProductInCart'
 
 async function getProduct(id) {
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`
-    const response = await fetch(url)
+    const response = await fetch(url, { next: { revalidate: 1 } })
 
 
     return response.json()
@@ -13,7 +13,7 @@ async function getProduct(id) {
 
 async function getRelatedProducts(cat_id) {
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/search?category=${cat_id}`
-    const response = await fetch(url)
+    const response = await fetch(url, { next: { revalidate: 1 } })
 
     return response.json()
 }
@@ -28,7 +28,7 @@ const Page = async ({ params }) => {
             <div className="flex flex-col sm:flex-row gap-5 my-10">
                 <Image
                     className="w-full mx-auto sm:w-1/2 rounded md" 
-                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/images/${productData.image_path}`}
+                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${productData.image_path}`}
                     alt={ productData.name } 
                     width={ 400 }
                     height={ 200 }

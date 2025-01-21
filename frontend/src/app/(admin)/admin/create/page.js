@@ -90,7 +90,7 @@ const Page = () => {
                     className={`${ sending ? 'animate-pulse':'animate-none' } w-full mt-3 text-white rounded-md py-1 bg-indigo-700`}
                 >Submit</button>
             </form>
-            <PopupAlert show={ showAlert } success={ success } />
+            <PopupAlert show={ showAlert } message="Product created" success={ success } />
         </div>
     )
 }

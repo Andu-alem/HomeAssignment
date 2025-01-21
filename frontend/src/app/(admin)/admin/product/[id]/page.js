@@ -4,7 +4,7 @@ import Delete from '../../../components/Delete'
 
 async function getProduct(id) {
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`
-    const response = await fetch(url)
+    const response = await fetch(url, { next: { revalidate: 1 } })
 
 
     return response.json()
@@ -14,6 +14,7 @@ const Page = async ({ params }) => {
     const { id: param } = params
     const product = await getProduct(param)
     const { id, name, description, image_path, quantity, price, category } = product
+    
     
     return (
         <div className="flex flex-col items-center lg:flex-row">

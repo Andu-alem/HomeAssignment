@@ -33,7 +33,7 @@ const SideBar = () => {
         <div className="w-full h-full sm:h-[100vh] bg-zinc-800 sm:sticky top-0 pt-2 sm:pt-5">
             <div className="w-full flex gap-3">
                 <Bars3CenterLeftIcon className="w-7 h-7 mx-2 mt-1 sm:hidden cursor-pointer text-white" onClick={ () => setShow(true) } />
-                <h3 className="text-lg flex-grow sm:text-xl md:text-2xl text-white py-1 sm:border-b border-white px-3">Cool-Market</h3>
+                <Link href="/admin" className="text-lg flex-grow sm:text-xl md:text-2xl text-white py-1 cursor-pointer sm:border-b border-white px-3">Cool-Market</Link>
             </div>
             <div className={`${ show ? 'block':'hidden' } fixed sm:static sm:block top-0 w-full h-[100vh] sm:h-full z-50 pt-[5%] sm:pt-0 bg-zinc-800 sm:bg-transparent text-white mt-0 sm:mt-4 px-4`}>
                 <ArrowLeftIcon className="w-5 h-5 text-white sm:hidden mb-5 sm:mb-0" onClick={ () => setShow(false) } />
@@ -65,7 +65,7 @@ const SideBar = () => {
                                 <Link 
                                     key={ item.id } 
                                     className="text-[15px] py-1 text-gray-200 cursor-default hover:text-gray-300 hover:bg-zinc-700"
-                                    href={`?category=${item.id}`}
+                                    href={`/admin/?category=${item.id}`}
                                 >{ item.name }</Link>
                             ))
                         }

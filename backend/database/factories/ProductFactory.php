@@ -21,7 +21,7 @@ class ProductFactory extends Factory
             'description' => fake()->text(),
             'price' => 200.43,
             'quantity' => 10,
-            'image_path' => 'images\\image.jpg',
+            'image_path' => 'images/image.jpg',
         ];
     }
 }

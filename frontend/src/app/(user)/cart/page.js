@@ -131,7 +131,7 @@ const CartPage = () => {
                     )
                 }
             </div>
-            <PopupAlert show={ showAlert } success={ success } />
+            <PopupAlert show={ showAlert } message="Order submitted" success={ success } />
         </div>
     )
 }

@@ -113,7 +113,7 @@ const UpdateForm = ({ product }) => {
             <button 
                 className={`${ sending ? 'animate-pulse':'animate-none' } w-full mt-3 text-white text-[15px] rounded-md py-1 bg-indigo-700 hover:bg-indigo-400`}
             >Submit</button>
-            <PopupAlert show={ showAlert } success={ success } />
+            <PopupAlert show={ showAlert } message="Update made" success={ success } />
         </form>
     )
 }

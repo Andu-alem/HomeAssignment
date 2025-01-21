@@ -35,7 +35,6 @@ const Home = async ({ searchParams }) => {
     const categories = await getCategories()
     const { data, meta } = await getProducts(searchParams)
 
-
     if (data.length < 1) {
         return (
             <div>

@@ -20,6 +20,7 @@ async function getProducts(searchParams) {
 
 const Page = async ({ searchParams }) => {
     const { data, meta } = await getProducts(searchParams)
+    
 
     return (
         <div>
