@@ -9,14 +9,14 @@ const Collapse = ({ title, children }) => {
     const [show, setShow] = useState(false)
     
     return (
-        <div>
-            <div className="flex justify-between items-center my-2" onClick={ () => setShow(!show) }>
-                <h2 className="text-sm">{ title }</h2>
+        <div className="">
+            <div className="flex justify-between items-center my-2 border-b border-zinc-700" onClick={ () => setShow(!show) }>
+                <h2 className="text-sm mb-2">{ title }</h2>
                 {
                     show ? (
-                        <ChevronDownIcon className="w-5 h-5 text-white" />
+                        <ChevronDownIcon className="w-4 h-4 text-white" />
                     ) : (
-                        <ChevronRightIcon className="w-5 h-5 text-white" />
+                        <ChevronRightIcon className="w-4 h-4 text-white" />
                     )
                 }
             </div>

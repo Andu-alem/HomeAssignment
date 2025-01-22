@@ -34,7 +34,7 @@ const CategoryForm = ({ show }) => {
     }
 
     return (
-        <div className="text-[15px] w-[35%] mx-auto flex flex-col items-center">
+        <div className="text-[15px] w-[35%] mx-auto flex flex-col items-center my-2">
             <input className="text-[15px] border-gray-300 py-[1px] rounded-lg text-black bg-gray-200" type="text" value={ category } onChange={ (e) => setCategory(e.target.value) }/>
             <button className={`${ sending ? 'animate-pulse':'animate-none' } mt-2 bg-zinc-700 rounded-md px-2 py-1 hover:bg-zinc-500`} onClick={ handleSubmit }>Create</button>
             { message != "" && (<p className={ success ? 'text-green-500':'text-red-400' }>{ message }</p>) }

@@ -1,9 +1,11 @@
 'use client'
 import axios from "@/lib/axios"
 import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useAppContext } from "@/lib/context"
 
 const Delete = ({ id, back=false, className }) => {
+    const { setChangeMade } = useAppContext()
     const router = useRouter()
     const [showModal, setShowModal] = useState(false)
 
@@ -11,8 +13,8 @@ const Delete = ({ id, back=false, className }) => {
         await axios('/sanctum/csrf-cookie/')
         const response = await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`)
         if (back) {
+            setChangeMade(true)
             router.back()
-            router.refresh()
         } else {
             router.refresh()
         }

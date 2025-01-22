@@ -1,5 +1,4 @@
 'use client'
-import { useAppContext } from "@/lib/context"
 import { 
     ChevronLeftIcon, 
     ChevronRightIcon
@@ -7,14 +6,18 @@ import {
 import Link from "next/link"
 
 const Pagination = ({ links }) => {
-    const { setUrl } = useAppContext()
-
+    
     return (
         <div className="my-7">
             <ul className="text-[15px] text-zinc-500 flex justify-center gap-1 md:gap-4">
                 {
                     links.map((link, index) => {
-                        const url = link.label ? `?page=${link.label}`:''
+                        let url = ''
+                        if (link.url) {
+                            const startIndex = link.url.lastIndexOf("?")
+                            url = link.url.slice(startIndex)
+                        }
+                        
                         return (
                             <Link 
                                 key={index} 

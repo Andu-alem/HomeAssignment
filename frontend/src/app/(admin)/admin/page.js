@@ -1,9 +1,11 @@
+'use'
 import ProductCard from "../components/ProductCard"
+import ProductsList from "../components/ProductsList"
 import Pagination from "@/components/Pagination"
 
 async function getProducts(searchParams) {
     let url;
-
+    
     if (searchParams.page) {
         url = `/api/products?page=${searchParams.page}`
     } else if (searchParams.name) {
@@ -13,24 +15,17 @@ async function getProducts(searchParams) {
     } else {
         url = `/api/products`
     }
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${url}`, { next: { revalidate: 1 } });
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}${url}`, { cache: "no-store"});
 
     return response.json();
 }
 
 const Page = async ({ searchParams }) => {
     const { data, meta } = await getProducts(searchParams)
-    
 
     return (
         <div>
-            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 lg:gap-5 mx-1 sm:mx-7">
-                {
-                    data.map((product, index) => (
-                        <ProductCard key={index} product={ product } />
-                    ))
-                }             
-            </div>
+            <ProductsList products={ data } />
             { meta?.links && (<Pagination links={ meta.links } />)}
         </div>
     )

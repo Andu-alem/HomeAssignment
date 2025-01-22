@@ -4,7 +4,7 @@ import Delete from '../../../components/Delete'
 
 async function getProduct(id) {
     const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/products/${id}`
-    const response = await fetch(url, { next: { revalidate: 1 } })
+    const response = await fetch(url, { cache: "no-store" })
 
 
     return response.json()
@@ -24,6 +24,7 @@ const Page = async ({ params }) => {
                     src={`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/${image_path}`}
                     width={ 400 }
                     height={ 300 }
+                    alt={ name }
                     layout= "responsive" />
             </div>
             <div className="w-[75%] lg:w-1/2 p-3">

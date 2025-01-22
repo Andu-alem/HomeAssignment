@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import axios from '@/lib/axios'
+import { useAppContext } from '@/lib/context'
 import Input from '../../components/Input'
 import FileInput from '../../components/FileInput'
 import TextArea from '../../components/TextArea'
@@ -17,6 +18,7 @@ async function getCategories() {
 }
 
 const Page = () => {
+    const { setChangeMade } = useAppContext()
     const router = useRouter()
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const [image, setImage] = useState(null)
@@ -52,6 +54,7 @@ const Page = () => {
             setTimeout(() => {
                 setShowAlert(false)
                 reset()
+                setChangeMade(true)//used to refresh product list page
                 router.push(`/admin/product/${response.data.id}`)
             }, 5000)
         } else {

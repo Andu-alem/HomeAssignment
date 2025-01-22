@@ -7,9 +7,11 @@ import Input from './UpdateInput'
 import TextArea from './UpdateTextArea'
 import PopupAlert from '@/components/PopupAlert'
 import { useRouter } from 'next/navigation'
+import { useAppContext } from '@/lib/context'
 
 
 const UpdateForm = ({ product }) => {
+    const { setChangeMade } = useAppContext()
     const router = useRouter()
     const [image, setImage] = useState(null)
     const [sending, setSending] = useState(false)
@@ -57,7 +59,8 @@ const UpdateForm = ({ product }) => {
             setSuccess(true)
             setTimeout(() => { 
                 setShowAlert(false)
-                reset()
+                router.refresh()
+                setChangeMade(true)
                 router.push(`/admin/product/${product.id}`)
             }, 10000)
         } else {

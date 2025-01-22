@@ -1,10 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/*
 nextjs-portal {
     display: none;
-}
+}*/
 .scrollbar-hide::-webkit-scrollbar{
     display: none;
 }

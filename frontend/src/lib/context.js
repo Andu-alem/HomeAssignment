@@ -5,10 +5,11 @@ const CustomContext = createContext();
 
 const ContextProvider = ({ children }) => {
     const [cart, setCart] = useState([])
+    const [changeMade, setChangeMade] = useState(false)
 
     return (
         <CustomContext.Provider 
-            value={{ cart, setCart }} 
+            value={{ cart, setCart, changeMade, setChangeMade }} 
         >
             { children }
         </CustomContext.Provider>
